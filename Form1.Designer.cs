@@ -34,6 +34,7 @@
             this.generateBtn = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
             this.scaleLbl = new System.Windows.Forms.Label();
+            this.nextBtn = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // dMajorBtn
@@ -68,7 +69,7 @@
             // 
             // generateBtn
             // 
-            this.generateBtn.Location = new System.Drawing.Point(114, 211);
+            this.generateBtn.Location = new System.Drawing.Point(15, 207);
             this.generateBtn.Name = "generateBtn";
             this.generateBtn.Size = new System.Drawing.Size(126, 53);
             this.generateBtn.TabIndex = 3;
@@ -95,11 +96,23 @@
             this.scaleLbl.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.scaleLbl.UseMnemonic = false;
             // 
+            // nextBtn
+            // 
+            this.nextBtn.Location = new System.Drawing.Point(216, 207);
+            this.nextBtn.Name = "nextBtn";
+            this.nextBtn.Size = new System.Drawing.Size(126, 53);
+            this.nextBtn.TabIndex = 6;
+            this.nextBtn.Text = "NASTĘPNE 4";
+            this.nextBtn.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
+            this.nextBtn.UseVisualStyleBackColor = true;
+            this.nextBtn.Click += new System.EventHandler(this.NextBtn_Click);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(354, 297);
+            this.Controls.Add(this.nextBtn);
             this.Controls.Add(this.scaleLbl);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.generateBtn);
@@ -122,6 +135,7 @@
         private System.Windows.Forms.Button generateBtn;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label scaleLbl;
+        private System.Windows.Forms.Button nextBtn;
     }
 }
 

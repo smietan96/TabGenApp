@@ -12,11 +12,10 @@ namespace TabGenApp
     public static class FileGenerator
     {
         public static Random rnd;
+        public static string path = Environment.GetFolderPath(Environment.SpecialFolder.Desktop) + @"\Tab.txt";       // Na razie ustawiłem miejsce utworzenia pliku na pulpicie
 
         public static void CreateFile(string[,] fretboard)          // Tworzy plik teksowy z wylosowaną tabulaturą             
-        {           
-            string path = Environment.GetFolderPath(Environment.SpecialFolder.Desktop) + @"\Tab.txt";       // Na razie ustawiłem miejsce utworzenia pliku na pulpicie
-            
+        {                       
             using (StreamWriter sw = File.CreateText(path))
             {
                 int rowLength = fretboard.GetLength(0);
@@ -31,11 +30,47 @@ namespace TabGenApp
                         sw.Write(fretboard[i, j]);
                     }
                     sw.Write("--|");
-                    sw.WriteLine();
+
+                    if(i != rowLength - 1)
+                        sw.WriteLine();
                 }
             }
             
         }           
+
+        public static void UpdateFile(string[] linesArray, string[,] fretboard)
+        {
+            using (StreamWriter sw = File.CreateText(path))
+            {
+                int rowLength = fretboard.GetLength(0);
+                int colLength = fretboard.GetLength(1);
+
+                for (int i = 0; i < linesArray.Length; i++)
+                {
+                    sw.Write(linesArray[i] + "--");
+                    for (int j = 0; j < colLength; j++)
+                    {
+                        sw.Write(fretboard[i, j]);
+                    }
+                    sw.Write("--|");
+                    sw.WriteLine();
+                }
+            }
+        }
+
+        public static string[] GetArrayFromFile()
+        {
+            string fileText = File.ReadAllText(path);
+            string[] lines = fileText.Split('\n');
+            for (int i = 0; i < lines.Length; i++)
+            {
+                if(i != lines.Length - 1)
+                    lines[i] = lines[i].Remove(lines[i].Length - 4);
+                else
+                    lines[i] = lines[i].Remove(lines[i].Length - 3);
+            }            
+            return lines;
+        }
 
         public static int[][] PickNotes(int[][] scaleFrets)         // Tworzy tablicę ze współrzędnymi wylosowanych dźwięków ze skali
         {

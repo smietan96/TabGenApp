@@ -4,6 +4,7 @@ using System.ComponentModel;
 using System.Data;
 using System.Diagnostics;
 using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -60,6 +61,20 @@ namespace TabGenApp
                 {
 
                 }
+            }
+        }
+
+        private void NextBtn_Click(object sender, EventArgs e)
+        {
+            if (File.Exists(FileGenerator.path))
+            {
+                string[] linesArray = FileGenerator.GetArrayFromFile();
+                int[][] nextNotes = FileGenerator.PickNotes(chosenScale);
+                fretboard = FileGenerator.CreateEmptyTab();
+
+                FileGenerator.InsertPickedNotes(fretboard, nextNotes, chosenScale);
+                FileGenerator.UpdateFile(linesArray, fretboard);
+
             }
         }
     }
