@@ -113,6 +113,15 @@ namespace TabGenApp
                     try
                     {
                         existingFret = scaleFrets[rRand][cRand];
+
+                        if (i > 0)
+                        {
+                            if (Math.Abs(pickedNotes[i - 1][0] - rRand) < 2)
+                            {
+                                int grbb = 2;
+                            }
+                        }
+
                         pickedNotes[i] = new int[2] { rRand, cRand };
                         break;
                     }
