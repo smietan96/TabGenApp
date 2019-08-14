@@ -66,6 +66,7 @@ namespace TabGenApp
 
         private void NextBtn_Click(object sender, EventArgs e)
         {
+            FileGenerator.numberOfIterations++;
             if (File.Exists(FileGenerator.path))
             {
                 string[] linesArray = FileGenerator.GetArrayFromFile();
@@ -74,7 +75,6 @@ namespace TabGenApp
 
                 FileGenerator.InsertPickedNotes(fretboard, nextNotes, chosenScale);
                 FileGenerator.UpdateFile(linesArray, fretboard);
-
             }
         }
     }

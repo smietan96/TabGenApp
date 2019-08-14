@@ -11,6 +11,7 @@ namespace TabGenApp
 
     public static class FileGenerator
     {
+        public static int numberOfIterations;
         public static Random rnd;
         public static string path = Environment.GetFolderPath(Environment.SpecialFolder.Desktop) + @"\Tab.txt";       // Na razie ustawiłem miejsce utworzenia pliku na pulpicie
 
@@ -53,7 +54,8 @@ namespace TabGenApp
                         sw.Write(fretboard[i, j]);
                     }
                     sw.Write("--|");
-                    sw.WriteLine();
+                    if (i != rowLength - 1)
+                        sw.WriteLine();
                 }
             }
         }
@@ -62,12 +64,30 @@ namespace TabGenApp
         {
             string fileText = File.ReadAllText(path);
             string[] lines = fileText.Split('\n');
+
+            List<int> cnt = new List<int>();
+            foreach (var line in lines)
+            {
+                cnt.Add(line.Length);
+            }
+
             for (int i = 0; i < lines.Length; i++)
             {
-                if(i != lines.Length - 1)
-                    lines[i] = lines[i].Remove(lines[i].Length - 4);
+                if(numberOfIterations % 2 == 0)
+                {
+                    if (i != lines.Length - 1)
+                        lines[i] = lines[i].Remove(lines[i].Length - 1);
+                    //else
+                    //    lines[i] = lines[i].Remove(lines[i].Length);
+                }
                 else
-                    lines[i] = lines[i].Remove(lines[i].Length - 3);
+                {
+                    if(i != lines.Length - 1)
+                        lines[i] = lines[i].Remove(lines[i].Length - 4);
+                    else
+                        lines[i] = lines[i].Remove(lines[i].Length - 3);
+                }
+                
             }            
             return lines;
         }
