@@ -113,12 +113,11 @@ namespace TabGenApp
                     try
                     {
                         existingFret = scaleFrets[rRand][cRand];
-
                         if (i > 0)
                         {
-                            if (Math.Abs(pickedNotes[i - 1][0] - rRand) < 2)
+                            if (Math.Abs(pickedNotes[i - 1][0] - rRand) > 2 && Math.Abs(existingFret - scaleFrets[pickedNotes[i-1][0]][pickedNotes[i-1][1]]) > 3)
                             {
-                                int grbb = 2;
+                                continue;
                             }
                         }
 
