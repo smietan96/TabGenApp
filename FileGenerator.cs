@@ -60,6 +60,28 @@ namespace TabGenApp
             }
         }
 
+        public static Tuple<int, int> GetLastNote(string[] linesArray)
+        {
+            int stringIndex = 0;
+            int fret = 0;
+            for (int i = 0; i < linesArray.Length; i++)
+            {
+                string line = linesArray[i];
+
+                string twoLastChars = (numberOfIterations % 2 != 0) ? line.Substring(line.Length - 2) : line.Substring(line.Length - 5, 2);
+                if (twoLastChars.Any(char.IsDigit))
+                {
+                    stringIndex = i;
+                    if (twoLastChars.All(char.IsDigit))
+                        fret = Int32.Parse(twoLastChars);
+                    else
+                        fret = Int32.Parse(twoLastChars.Substring(1));                    
+                }
+            }
+
+            return Tuple.Create(stringIndex, fret);
+        }
+
         public static string[] GetArrayFromFile()
         {
             string fileText = File.ReadAllText(path);
@@ -92,8 +114,13 @@ namespace TabGenApp
             return lines;
         }
 
-        public static int[][] PickNotes(int[][] scaleFrets)         // Tworzy tablicę ze współrzędnymi wylosowanych dźwięków ze skali
+        public static int[][] PickNotes(int[][] scaleFrets, string[] linesArray = null)         // Tworzy tablicę ze współrzędnymi wylosowanych dźwięków ze skali
         {
+            Tuple<int, int> lastNote = null;
+            if(linesArray != null)
+            {
+                lastNote = GetLastNote(linesArray);
+            }
             int rowLength = scaleFrets.GetLength(0);
             int maxColLength = 0;
             foreach (int[] row in scaleFrets)
@@ -113,11 +140,24 @@ namespace TabGenApp
                     try
                     {
                         existingFret = scaleFrets[rRand][cRand];
-                        if (i > 0)
+                        int stringDif = 0;
+                        int fretDif = 0;
+
+                        if (i != 0)
                         {
-                            if (Math.Abs(pickedNotes[i - 1][0] - rRand) > 2 && Math.Abs(existingFret - scaleFrets[pickedNotes[i-1][0]][pickedNotes[i-1][1]]) > 3)
+                            stringDif = Math.Abs(pickedNotes[i - 1][0] - rRand);
+                            fretDif = Math.Abs(existingFret - scaleFrets[pickedNotes[i - 1][0]][pickedNotes[i - 1][1]]);
+                            if ( stringDif > 2 || fretDif > 4)
+                                continue;                            
+                        }
+                        else
+                        {
+                            if(lastNote != null)
                             {
-                                continue;
+                                stringDif = Math.Abs(lastNote.Item1 - rRand);
+                                fretDif = Math.Abs(lastNote.Item2 - existingFret);
+                                if (stringDif > 2 || fretDif > 4)
+                                    continue;
                             }
                         }
 

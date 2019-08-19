@@ -70,7 +70,7 @@ namespace TabGenApp
             if (File.Exists(FileGenerator.path))
             {
                 string[] linesArray = FileGenerator.GetArrayFromFile();
-                int[][] nextNotes = FileGenerator.PickNotes(chosenScale);
+                int[][] nextNotes = FileGenerator.PickNotes(chosenScale, linesArray);
                 fretboard = FileGenerator.CreateEmptyTab();
 
                 FileGenerator.InsertPickedNotes(fretboard, nextNotes, chosenScale);
