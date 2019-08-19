@@ -15,7 +15,7 @@ namespace TabGenApp
     public partial class Form1 : Form
     {
         public int[][] chosenScale;
-        public string[,] fretboard; 
+        public string[,] fretboard;
 
         public Form1()
         {
@@ -24,7 +24,9 @@ namespace TabGenApp
 
         private void Form1_Load(object sender, EventArgs e)
         {
-
+            this.FormClosing += new FormClosingEventHandler(Form1_FormClosing);
+            scaleLbl.Text = "D Dur";
+            chosenScale = FileGenerator.GetDMajorFrets();
         }
 
         private void DMajorBtn_Click(object sender, EventArgs e)
@@ -47,7 +49,9 @@ namespace TabGenApp
 
         private void GenerateBtn_Click(object sender, EventArgs e)
         {
-            if(chosenScale != null)
+            FileGenerator.numberOfIterations = 0;
+            FileGenerator.KillProcess();
+            if (chosenScale != null)
             {
                 int[][] pickedNotes = FileGenerator.PickNotes(chosenScale);
                 fretboard = FileGenerator.CreateEmptyTab();
@@ -56,19 +60,23 @@ namespace TabGenApp
                 FileGenerator.CreateFile(fretboard);
                 try
                 {
-                    Process.Start(@"D:\Program Files\Guitar Pro 6\GuitarPro.exe");      
-                }catch(Exception ex)
+                    Process.Start(@"D:\Program Files\Guitar Pro 6\GuitarPro.exe");
+                }
+                catch (Exception ex)
                 {
 
                 }
+                Process.Start(FileGenerator.path);
             }
         }
 
         private void NextBtn_Click(object sender, EventArgs e)
         {
-            FileGenerator.numberOfIterations++;
+            FileGenerator.KillProcess();
+
             if (File.Exists(FileGenerator.path))
-            {
+            {                
+                FileGenerator.numberOfIterations++;
                 string[] linesArray = FileGenerator.GetArrayFromFile();
                 int[][] nextNotes = FileGenerator.PickNotes(chosenScale, linesArray);
                 fretboard = FileGenerator.CreateEmptyTab();
@@ -76,6 +84,13 @@ namespace TabGenApp
                 FileGenerator.InsertPickedNotes(fretboard, nextNotes, chosenScale);
                 FileGenerator.UpdateFile(linesArray, fretboard);
             }
+            Process.Start(FileGenerator.path);
+        }
+
+        private void Form1_FormClosing(Object sender, FormClosingEventArgs e)
+        {
+            FileGenerator.KillProcess();
+            File.Delete(FileGenerator.path);
         }
     }
 }

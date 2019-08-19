@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Text;
@@ -57,6 +58,8 @@ namespace TabGenApp
                     if (i != rowLength - 1)
                         sw.WriteLine();
                 }
+
+                //FileStream fs = File.Open(path, FileMode.OpenOrCreate);
             }
         }
 
@@ -80,6 +83,13 @@ namespace TabGenApp
             }
 
             return Tuple.Create(stringIndex, fret);
+        }
+
+        public static void KillProcess()
+        {
+            Process[] pname = Process.GetProcessesByName("notepad");
+            if (pname.Length != 0)
+                pname.FirstOrDefault().Kill();
         }
 
         public static string[] GetArrayFromFile()
