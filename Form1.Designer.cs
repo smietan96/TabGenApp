@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             this.dMajorBtn = new System.Windows.Forms.Button();
             this.cMajorBtn = new System.Windows.Forms.Button();
             this.aBluesBtn = new System.Windows.Forms.Button();
@@ -35,13 +36,14 @@
             this.label1 = new System.Windows.Forms.Label();
             this.scaleLbl = new System.Windows.Forms.Label();
             this.nextBtn = new System.Windows.Forms.Button();
+            this.contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.SuspendLayout();
             // 
             // dMajorBtn
             // 
             this.dMajorBtn.Location = new System.Drawing.Point(12, 12);
             this.dMajorBtn.Name = "dMajorBtn";
-            this.dMajorBtn.Size = new System.Drawing.Size(330, 23);
+            this.dMajorBtn.Size = new System.Drawing.Size(156, 23);
             this.dMajorBtn.TabIndex = 0;
             this.dMajorBtn.Text = "D DUR";
             this.dMajorBtn.UseVisualStyleBackColor = true;
@@ -51,7 +53,7 @@
             // 
             this.cMajorBtn.Location = new System.Drawing.Point(12, 53);
             this.cMajorBtn.Name = "cMajorBtn";
-            this.cMajorBtn.Size = new System.Drawing.Size(330, 23);
+            this.cMajorBtn.Size = new System.Drawing.Size(156, 23);
             this.cMajorBtn.TabIndex = 1;
             this.cMajorBtn.Text = "C DUR";
             this.cMajorBtn.UseVisualStyleBackColor = true;
@@ -61,7 +63,7 @@
             // 
             this.aBluesBtn.Location = new System.Drawing.Point(12, 93);
             this.aBluesBtn.Name = "aBluesBtn";
-            this.aBluesBtn.Size = new System.Drawing.Size(330, 23);
+            this.aBluesBtn.Size = new System.Drawing.Size(156, 23);
             this.aBluesBtn.TabIndex = 2;
             this.aBluesBtn.Text = "A BLUES";
             this.aBluesBtn.UseVisualStyleBackColor = true;
@@ -71,7 +73,7 @@
             // 
             this.generateBtn.Location = new System.Drawing.Point(15, 207);
             this.generateBtn.Name = "generateBtn";
-            this.generateBtn.Size = new System.Drawing.Size(126, 53);
+            this.generateBtn.Size = new System.Drawing.Size(153, 53);
             this.generateBtn.TabIndex = 3;
             this.generateBtn.Text = "GENERUJ";
             this.generateBtn.UseVisualStyleBackColor = true;
@@ -98,20 +100,25 @@
             // 
             // nextBtn
             // 
-            this.nextBtn.Location = new System.Drawing.Point(216, 207);
+            this.nextBtn.Location = new System.Drawing.Point(195, 207);
             this.nextBtn.Name = "nextBtn";
-            this.nextBtn.Size = new System.Drawing.Size(126, 53);
+            this.nextBtn.Size = new System.Drawing.Size(147, 53);
             this.nextBtn.TabIndex = 6;
             this.nextBtn.Text = "NASTĘPNE 4";
             this.nextBtn.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
             this.nextBtn.UseVisualStyleBackColor = true;
             this.nextBtn.Click += new System.EventHandler(this.NextBtn_Click);
             // 
+            // contextMenuStrip1
+            // 
+            this.contextMenuStrip1.Name = "contextMenuStrip1";
+            this.contextMenuStrip1.Size = new System.Drawing.Size(61, 4);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(354, 297);
+            this.ClientSize = new System.Drawing.Size(358, 297);
             this.Controls.Add(this.nextBtn);
             this.Controls.Add(this.scaleLbl);
             this.Controls.Add(this.label1);
@@ -136,6 +143,7 @@
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label scaleLbl;
         private System.Windows.Forms.Button nextBtn;
+        private System.Windows.Forms.ContextMenuStrip contextMenuStrip1;
     }
 }
 

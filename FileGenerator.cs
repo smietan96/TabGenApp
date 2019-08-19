@@ -229,12 +229,12 @@ namespace TabGenApp
 
         public static int[][] GetDMajorFrets()
         {
-            int[] e2frets = { 2, 3, 5, 7, 9, 10, 12 };
-            int[] bfrets = { 2, 3, 5, 7, 8, 10, 12 };
-            int[] gfrets = { 2, 4, 6, 7, 9, 11, 12 };
-            int[] dfrets = { 2, 4, 5, 7, 9, 11, 12 };
-            int[] afrets = { 2, 4, 5, 7, 9, 10, 12 };
-            int[] efrets = { 2, 3, 5, 7, 9, 10, 12 };
+            int[] e2frets = { 2, 3, 5, 7, 9, 10, 12, 14, 15, 17, 19, 21, 22, 24 };
+            int[] bfrets = { 2, 3, 5, 7, 8, 10, 12, 14, 15, 17, 19, 20, 22, 24 };
+            int[] gfrets = { 2, 4, 6, 7, 9, 11, 12, 14, 16, 18, 19, 21, 23, 24 };
+            int[] dfrets = { 2, 4, 5, 7, 9, 11, 12, 14, 16, 17, 19, 21, 23, 24 };
+            int[] afrets = { 2, 4, 5, 7, 9, 10, 12, 14, 16, 17, 19, 21, 22, 24 };
+            int[] efrets = { 2, 3, 5, 7, 9, 10, 12, 14, 15, 17, 19, 21, 22, 24 };
 
             return new int[][] { e2frets, bfrets, gfrets, dfrets, afrets, efrets };
         }
