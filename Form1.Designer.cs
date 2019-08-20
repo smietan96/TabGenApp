@@ -37,6 +37,7 @@
             this.scaleLbl = new System.Windows.Forms.Label();
             this.nextBtn = new System.Windows.Forms.Button();
             this.contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.BackBtn = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // dMajorBtn
@@ -73,7 +74,7 @@
             // 
             this.generateBtn.Location = new System.Drawing.Point(15, 207);
             this.generateBtn.Name = "generateBtn";
-            this.generateBtn.Size = new System.Drawing.Size(153, 53);
+            this.generateBtn.Size = new System.Drawing.Size(96, 53);
             this.generateBtn.TabIndex = 3;
             this.generateBtn.Text = "GENERUJ";
             this.generateBtn.UseVisualStyleBackColor = true;
@@ -100,9 +101,9 @@
             // 
             // nextBtn
             // 
-            this.nextBtn.Location = new System.Drawing.Point(195, 207);
+            this.nextBtn.Location = new System.Drawing.Point(132, 207);
             this.nextBtn.Name = "nextBtn";
-            this.nextBtn.Size = new System.Drawing.Size(147, 53);
+            this.nextBtn.Size = new System.Drawing.Size(98, 53);
             this.nextBtn.TabIndex = 6;
             this.nextBtn.Text = "NASTĘPNE 4";
             this.nextBtn.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
@@ -114,11 +115,23 @@
             this.contextMenuStrip1.Name = "contextMenuStrip1";
             this.contextMenuStrip1.Size = new System.Drawing.Size(61, 4);
             // 
+            // BackBtn
+            // 
+            this.BackBtn.Location = new System.Drawing.Point(249, 207);
+            this.BackBtn.Name = "BackBtn";
+            this.BackBtn.Size = new System.Drawing.Size(98, 53);
+            this.BackBtn.TabIndex = 7;
+            this.BackBtn.Text = "COFNIJ 4";
+            this.BackBtn.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
+            this.BackBtn.UseVisualStyleBackColor = true;
+            this.BackBtn.Click += new System.EventHandler(this.BackBtn_Click_1);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(358, 297);
+            this.ClientSize = new System.Drawing.Size(359, 297);
+            this.Controls.Add(this.BackBtn);
             this.Controls.Add(this.nextBtn);
             this.Controls.Add(this.scaleLbl);
             this.Controls.Add(this.label1);
@@ -144,6 +157,7 @@
         private System.Windows.Forms.Label scaleLbl;
         private System.Windows.Forms.Button nextBtn;
         private System.Windows.Forms.ContextMenuStrip contextMenuStrip1;
+        private System.Windows.Forms.Button BackBtn;
     }
 }
 

@@ -44,22 +44,41 @@ namespace TabGenApp
         {
             using (StreamWriter sw = File.CreateText(path))
             {
-                int rowLength = fretboard.GetLength(0);
-                int colLength = fretboard.GetLength(1);
-
-                for (int i = 0; i < linesArray.Length; i++)
+                if(fretboard != null)
                 {
-                    sw.Write(linesArray[i] + "--");
-                    for (int j = 0; j < colLength; j++)
-                    {
-                        sw.Write(fretboard[i, j]);
-                    }
-                    sw.Write("--|");
-                    if (i != rowLength - 1)
-                        sw.WriteLine();
-                }
+                    int rowLength = fretboard.GetLength(0);
+                    int colLength = fretboard.GetLength(1);
 
-                //FileStream fs = File.Open(path, FileMode.OpenOrCreate);
+                    for (int i = 0; i < linesArray.Length; i++)
+                    {
+                        sw.Write(linesArray[i] + "--");
+                        for (int j = 0; j < colLength; j++)
+                        {
+                            sw.Write(fretboard[i, j]);
+                        }
+                        sw.Write("--|");
+                        if (i != rowLength - 1)
+                            sw.WriteLine();
+                    }
+                }
+                else
+                {
+                    for (int i = 0; i < linesArray.Length; i++)
+                    {
+                        if(numberOfIterations % 2 == 0)
+                        {
+                            sw.Write(linesArray[i] + "--|");
+                            if (i != linesArray.Length - 1)
+                                sw.WriteLine();
+                        }
+                        else
+                        {
+                            sw.Write(linesArray[i]);
+                            if (i != linesArray.Length - 1)
+                                sw.WriteLine();
+                        }
+                    }
+                }
             }
         }
 
@@ -90,6 +109,11 @@ namespace TabGenApp
             Process[] pname = Process.GetProcessesByName("notepad");
             if (pname.Length != 0)
                 pname.FirstOrDefault().Kill();
+        }
+
+        public static string[] RemoveIteration(string[] previousLinesArray)
+        {
+            return new string[] { "a", "b"};
         }
 
         public static string[] GetArrayFromFile()

@@ -16,6 +16,7 @@ namespace TabGenApp
     {
         public int[][] chosenScale;
         public string[,] fretboard;
+        public string[] previousLinesArray;
 
         public Form1()
         {
@@ -78,6 +79,7 @@ namespace TabGenApp
             {                
                 FileGenerator.numberOfIterations++;
                 string[] linesArray = FileGenerator.GetArrayFromFile();
+                previousLinesArray = linesArray;
                 int[][] nextNotes = FileGenerator.PickNotes(chosenScale, linesArray);
                 fretboard = FileGenerator.CreateEmptyTab();
 
@@ -85,12 +87,26 @@ namespace TabGenApp
                 FileGenerator.UpdateFile(linesArray, fretboard);
             }
             Process.Start(FileGenerator.path);
+            BackBtn.Enabled = true;
         }
 
         private void Form1_FormClosing(Object sender, FormClosingEventArgs e)
         {
             FileGenerator.KillProcess();
             File.Delete(FileGenerator.path);
+        }
+
+        private void BackBtn_Click_1(object sender, EventArgs e)
+        {
+            if (File.Exists(FileGenerator.path) && FileGenerator.numberOfIterations > 0)
+            {
+                FileGenerator.KillProcess();
+                FileGenerator.numberOfIterations--;
+                fretboard = null;
+                FileGenerator.UpdateFile(previousLinesArray, fretboard);
+                Process.Start(FileGenerator.path);
+            }
+            BackBtn.Enabled = false;
         }
     }
 }
