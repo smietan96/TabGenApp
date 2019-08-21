@@ -38,6 +38,11 @@
             this.nextBtn = new System.Windows.Forms.Button();
             this.contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.BackBtn = new System.Windows.Forms.Button();
+            this.richTextBox2 = new System.Windows.Forms.RichTextBox();
+            this.b = new System.Windows.Forms.Button();
+            this.bb = new System.Windows.Forms.Button();
+            this.bbb = new System.Windows.Forms.Button();
+            this.min10chbx = new System.Windows.Forms.CheckBox();
             this.SuspendLayout();
             // 
             // dMajorBtn
@@ -126,11 +131,64 @@
             this.BackBtn.UseVisualStyleBackColor = true;
             this.BackBtn.Click += new System.EventHandler(this.BackBtn_Click_1);
             // 
+            // richTextBox2
+            // 
+            this.richTextBox2.Font = new System.Drawing.Font("Lucida Console", 14F);
+            this.richTextBox2.Location = new System.Drawing.Point(371, 12);
+            this.richTextBox2.Name = "richTextBox2";
+            this.richTextBox2.Size = new System.Drawing.Size(599, 150);
+            this.richTextBox2.TabIndex = 9;
+            this.richTextBox2.Text = "";
+            this.richTextBox2.WordWrap = false;
+            // 
+            // b
+            // 
+            this.b.Location = new System.Drawing.Point(191, 12);
+            this.b.Name = "b";
+            this.b.Size = new System.Drawing.Size(156, 23);
+            this.b.TabIndex = 10;
+            this.b.Text = "skala 4";
+            this.b.UseVisualStyleBackColor = true;
+            // 
+            // bb
+            // 
+            this.bb.Location = new System.Drawing.Point(191, 53);
+            this.bb.Name = "bb";
+            this.bb.Size = new System.Drawing.Size(156, 23);
+            this.bb.TabIndex = 11;
+            this.bb.Text = "skala 5";
+            this.bb.UseVisualStyleBackColor = true;
+            // 
+            // bbb
+            // 
+            this.bbb.Location = new System.Drawing.Point(191, 93);
+            this.bbb.Name = "bbb";
+            this.bbb.Size = new System.Drawing.Size(156, 23);
+            this.bbb.TabIndex = 12;
+            this.bbb.Text = "skala 6";
+            this.bbb.UseVisualStyleBackColor = true;
+            // 
+            // min10chbx
+            // 
+            this.min10chbx.AutoSize = true;
+            this.min10chbx.Location = new System.Drawing.Point(371, 226);
+            this.min10chbx.Name = "min10chbx";
+            this.min10chbx.Size = new System.Drawing.Size(58, 17);
+            this.min10chbx.TabIndex = 14;
+            this.min10chbx.Text = "Min 10";
+            this.min10chbx.UseVisualStyleBackColor = true;
+            this.min10chbx.CheckedChanged += new System.EventHandler(this.Min10chbx_CheckedChanged);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(359, 297);
+            this.ClientSize = new System.Drawing.Size(982, 297);
+            this.Controls.Add(this.min10chbx);
+            this.Controls.Add(this.bbb);
+            this.Controls.Add(this.bb);
+            this.Controls.Add(this.b);
+            this.Controls.Add(this.richTextBox2);
             this.Controls.Add(this.BackBtn);
             this.Controls.Add(this.nextBtn);
             this.Controls.Add(this.scaleLbl);
@@ -158,6 +216,11 @@
         private System.Windows.Forms.Button nextBtn;
         private System.Windows.Forms.ContextMenuStrip contextMenuStrip1;
         private System.Windows.Forms.Button BackBtn;
+        private System.Windows.Forms.RichTextBox richTextBox2;
+        private System.Windows.Forms.Button b;
+        private System.Windows.Forms.Button bb;
+        private System.Windows.Forms.Button bbb;
+        private System.Windows.Forms.CheckBox min10chbx;
     }
 }
 

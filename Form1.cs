@@ -20,7 +20,7 @@ namespace TabGenApp
 
         public Form1()
         {
-            InitializeComponent();
+            InitializeComponent();            
         }
 
         private void Form1_Load(object sender, EventArgs e)
@@ -28,6 +28,7 @@ namespace TabGenApp
             this.FormClosing += new FormClosingEventHandler(Form1_FormClosing);
             scaleLbl.Text = "D Dur";
             chosenScale = FileGenerator.GetDMajorFrets();
+            BackBtn.Enabled = false;
         }
 
         private void DMajorBtn_Click(object sender, EventArgs e)
@@ -50,8 +51,13 @@ namespace TabGenApp
 
         private void GenerateBtn_Click(object sender, EventArgs e)
         {
+            if (min10chbx.Checked)
+                FileGenerator.minFret = 10;
+            else
+                FileGenerator.minFret = 0;
+
             FileGenerator.numberOfIterations = 0;
-            FileGenerator.KillProcess();
+
             if (chosenScale != null)
             {
                 int[][] pickedNotes = FileGenerator.PickNotes(chosenScale);
@@ -67,13 +73,17 @@ namespace TabGenApp
                 {
 
                 }
-                Process.Start(FileGenerator.path);
+                richTextBox2.Text = File.ReadAllText(FileGenerator.path);
+                richTextBox2.ScrollToCaret();
             }
         }
 
         private void NextBtn_Click(object sender, EventArgs e)
         {
-            FileGenerator.KillProcess();
+            if (min10chbx.Checked)
+                FileGenerator.minFret = 10;
+            else
+                FileGenerator.minFret = 0;
 
             if (File.Exists(FileGenerator.path))
             {                
@@ -85,28 +95,40 @@ namespace TabGenApp
 
                 FileGenerator.InsertPickedNotes(fretboard, nextNotes, chosenScale);
                 FileGenerator.UpdateFile(linesArray, fretboard);
+                richTextBox2.Text = File.ReadAllText(FileGenerator.path);
+                richTextBox2.ScrollToCaret();
+                BackBtn.Enabled = true;
             }
-            Process.Start(FileGenerator.path);
-            BackBtn.Enabled = true;
+        }
+
+
+        private void BackBtn_Click_1(object sender, EventArgs e)
+        {
+            if (min10chbx.Checked)
+                FileGenerator.minFret = 10;
+            else
+                FileGenerator.minFret = 0;
+
+            if (File.Exists(FileGenerator.path) && FileGenerator.numberOfIterations > 0)
+            {
+                FileGenerator.numberOfIterations--;
+                fretboard = null;
+                FileGenerator.UpdateFile(previousLinesArray, fretboard);
+                richTextBox2.Text = File.ReadAllText(FileGenerator.path);
+                richTextBox2.SelectionStart = richTextBox2.Text.Length;
+                richTextBox2.ScrollToCaret();
+            }
+            BackBtn.Enabled = false;
         }
 
         private void Form1_FormClosing(Object sender, FormClosingEventArgs e)
         {
-            FileGenerator.KillProcess();
             File.Delete(FileGenerator.path);
         }
 
-        private void BackBtn_Click_1(object sender, EventArgs e)
+        private void Min10chbx_CheckedChanged(object sender, EventArgs e)
         {
-            if (File.Exists(FileGenerator.path) && FileGenerator.numberOfIterations > 0)
-            {
-                FileGenerator.KillProcess();
-                FileGenerator.numberOfIterations--;
-                fretboard = null;
-                FileGenerator.UpdateFile(previousLinesArray, fretboard);
-                Process.Start(FileGenerator.path);
-            }
-            BackBtn.Enabled = false;
+
         }
     }
 }

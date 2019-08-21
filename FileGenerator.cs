@@ -5,6 +5,7 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Forms;
 
 namespace TabGenApp
 {
@@ -15,9 +16,10 @@ namespace TabGenApp
         public static int numberOfIterations;
         public static Random rnd;
         public static string path = Environment.GetFolderPath(Environment.SpecialFolder.Desktop) + @"\Tab.txt";       // Na razie ustawiłem miejsce utworzenia pliku na pulpicie
+        public static int minFret; 
 
         public static void CreateFile(string[,] fretboard)          // Tworzy plik teksowy z wylosowaną tabulaturą             
-        {                       
+        {
             using (StreamWriter sw = File.CreateText(path))
             {
                 int rowLength = fretboard.GetLength(0);
@@ -33,12 +35,11 @@ namespace TabGenApp
                     }
                     sw.Write("--|");
 
-                    if(i != rowLength - 1)
+                    if (i != rowLength - 1)
                         sw.WriteLine();
                 }
             }
-            
-        }           
+        }    
 
         public static void UpdateFile(string[] linesArray, string[,] fretboard)
         {
@@ -104,16 +105,11 @@ namespace TabGenApp
             return Tuple.Create(stringIndex, fret);
         }
 
-        public static void KillProcess()
+        public static void ScrollToEnd(RichTextBox rtb)
         {
-            Process[] pname = Process.GetProcessesByName("notepad");
-            if (pname.Length != 0)
-                pname.FirstOrDefault().Kill();
-        }
-
-        public static string[] RemoveIteration(string[] previousLinesArray)
-        {
-            return new string[] { "a", "b"};
+            rtb.Text = File.ReadAllText(path);
+            rtb.SelectionStart = rtb.Text.Length;
+            rtb.ScrollToCaret();
         }
 
         public static string[] GetArrayFromFile()
@@ -174,6 +170,9 @@ namespace TabGenApp
                     try
                     {
                         existingFret = scaleFrets[rRand][cRand];
+                        if (existingFret < minFret && minFret != 0)
+                            continue;
+
                         int stringDif = 0;
                         int fretDif = 0;
 
@@ -265,12 +264,12 @@ namespace TabGenApp
 
         public static int[][] GetCMajorFrets()
         {
-            int[] e2frets = { 1, 3, 5, 7, 8, 10, 12 };
-            int[] bfrets = { 1, 3, 5, 6, 8, 10, 12 };
-            int[] gfrets = { 2, 4, 5, 7, 9, 10, 12 };
-            int[] dfrets = { 2, 3, 5, 7, 9, 10, 12 };
-            int[] afrets = { 2, 3, 5, 7, 8, 10, 12 };
-            int[] efrets = { 1, 3, 5, 7, 8, 10, 12 };
+            int[] e2frets = { 1, 3, 5, 7, 8, 10, 12 ,13, 15, 17, 19, 20, 22, 24 };
+            int[] bfrets = { 1, 3, 5, 6, 8, 10, 12, 13, 15, 17, 18, 20, 22, 24 };
+            int[] gfrets = { 2, 4, 5, 7, 9, 10, 12, 14, 16, 17, 19, 21, 22, 24 };
+            int[] dfrets = { 2, 3, 5, 7, 9, 10, 12, 14, 15, 17, 19, 21, 22, 24 };
+            int[] afrets = { 2, 3, 5, 7, 8, 10, 12, 14, 15, 17, 19, 20, 22, 24 };
+            int[] efrets = { 1, 3, 5, 7, 8, 10, 12, 19, 15, 17, 19, 20, 22, 24 };
 
             return new int[][] { e2frets, bfrets, gfrets, dfrets, afrets, efrets };
         }
