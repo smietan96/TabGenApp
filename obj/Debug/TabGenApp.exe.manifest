@@ -42,14 +42,14 @@
     </dependentAssembly>
   </dependency>
   <dependency>
-    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="TabGenApp.exe" size="18912">
+    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="TabGenApp.exe" size="20448">
       <assemblyIdentity name="TabGenApp" version="1.0.0.0" language="neutral" processorArchitecture="msil" />
       <hash>
         <dsig:Transforms>
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-        <dsig:DigestValue>Rc2ODyF2mR2Z9o1HSv8Clh+GBvzML47pubKRYGlVxu4=</dsig:DigestValue>
+        <dsig:DigestValue>Qk69EODAnz+yPOtRKTHedwvFt1GdZzyn+uKEWt4vGnY=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>

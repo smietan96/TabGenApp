@@ -16,7 +16,8 @@ namespace TabGenApp
         public static int numberOfIterations;
         public static Random rnd;
         public static string path = Environment.GetFolderPath(Environment.SpecialFolder.Desktop) + @"\Tab.txt";       // Na razie ustawiłem miejsce utworzenia pliku na pulpicie
-        public static int minFret; 
+        public static int minFret;
+        public static int maxFret;
 
         public static void CreateFile(string[,] fretboard)          // Tworzy plik teksowy z wylosowaną tabulaturą             
         {
@@ -105,11 +106,13 @@ namespace TabGenApp
             return Tuple.Create(stringIndex, fret);
         }
 
-        public static void ScrollToEnd(RichTextBox rtb)
+        public static void ConvertComboInputToInt(ComboBox cb1, ComboBox cb2)
         {
-            rtb.Text = File.ReadAllText(path);
-            rtb.SelectionStart = rtb.Text.Length;
-            rtb.ScrollToCaret();
+            if (cb1.SelectedItem != null)
+                Int32.TryParse(cb1.SelectedItem.ToString(), out minFret);
+
+            if (cb2.SelectedItem != null)
+                Int32.TryParse(cb2.SelectedItem.ToString(), out maxFret);
         }
 
         public static string[] GetArrayFromFile()
@@ -170,8 +173,16 @@ namespace TabGenApp
                     try
                     {
                         existingFret = scaleFrets[rRand][cRand];
-                        if (existingFret < minFret && minFret != 0)
-                            continue;
+                        //if (existingFret < minFret && minFret != 0)
+                        //    continue;
+
+                        if(minFret != 0 || maxFret != 0)
+                        {
+                            if ((maxFret == 0 && existingFret < minFret) 
+                                || (minFret == 0 && existingFret > maxFret) 
+                                || !(Enumerable.Range(minFret, maxFret-minFret).Contains(existingFret)))
+                                continue;
+                        }
 
                         int stringDif = 0;
                         int fretDif = 0;

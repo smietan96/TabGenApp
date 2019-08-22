@@ -20,7 +20,12 @@ namespace TabGenApp
 
         public Form1()
         {
-            InitializeComponent();            
+            InitializeComponent();
+            for (int i = 1; i <= 24; i++)
+            {
+                comboBox1.Items.Add(i);
+                comboBox2.Items.Add(i);
+            }
         }
 
         private void Form1_Load(object sender, EventArgs e)
@@ -51,10 +56,20 @@ namespace TabGenApp
 
         private void GenerateBtn_Click(object sender, EventArgs e)
         {
-            if (min10chbx.Checked)
-                FileGenerator.minFret = 10;
-            else
+            //if (comboBox1.SelectedItem != null)
+            //    Int32.TryParse(comboBox1.SelectedItem.ToString(), out FileGenerator.minFret);
+
+            //if (comboBox2.SelectedItem != null)
+            //    Int32.TryParse(comboBox2.SelectedItem.ToString(), out FileGenerator.maxFret);
+            FileGenerator.ConvertComboInputToInt(comboBox1, comboBox2);
+
+            if (FileGenerator.minFret >= FileGenerator.maxFret)
+            {
+                MessageBox.Show("Niepoprawny zakres");
                 FileGenerator.minFret = 0;
+                FileGenerator.maxFret = 0;
+                return;
+            }
 
             FileGenerator.numberOfIterations = 0;
 
@@ -80,10 +95,10 @@ namespace TabGenApp
 
         private void NextBtn_Click(object sender, EventArgs e)
         {
-            if (min10chbx.Checked)
-                FileGenerator.minFret = 10;
-            else
-                FileGenerator.minFret = 0;
+            //if (min10chbx.Checked)
+            //    FileGenerator.minFret = 10;
+            //else
+            //    FileGenerator.minFret = 0;
 
             if (File.Exists(FileGenerator.path))
             {                
@@ -104,10 +119,10 @@ namespace TabGenApp
 
         private void BackBtn_Click_1(object sender, EventArgs e)
         {
-            if (min10chbx.Checked)
-                FileGenerator.minFret = 10;
-            else
-                FileGenerator.minFret = 0;
+            //if (min10chbx.Checked)
+            //    FileGenerator.minFret = 10;
+            //else
+            //    FileGenerator.minFret = 0;
 
             if (File.Exists(FileGenerator.path) && FileGenerator.numberOfIterations > 0)
             {
@@ -126,9 +141,22 @@ namespace TabGenApp
             File.Delete(FileGenerator.path);
         }
 
-        private void Min10chbx_CheckedChanged(object sender, EventArgs e)
+        private void ClearBtn1_Click(object sender, EventArgs e)
         {
+            if (comboBox1.SelectedItem != null)
+            {
+                comboBox1.SelectedItem = null;
+                FileGenerator.minFret = 0;
+            }
+        }
 
+        private void ClearBtn2_Click(object sender, EventArgs e)
+        {
+            if (comboBox2.SelectedItem != null)
+            {
+                comboBox2.SelectedItem = null;
+                FileGenerator.maxFret = 0;
+            }
         }
     }
 }

@@ -42,7 +42,12 @@
             this.b = new System.Windows.Forms.Button();
             this.bb = new System.Windows.Forms.Button();
             this.bbb = new System.Windows.Forms.Button();
-            this.min10chbx = new System.Windows.Forms.CheckBox();
+            this.comboBox1 = new System.Windows.Forms.ComboBox();
+            this.label2 = new System.Windows.Forms.Label();
+            this.label3 = new System.Windows.Forms.Label();
+            this.comboBox2 = new System.Windows.Forms.ComboBox();
+            this.clearBtn1 = new System.Windows.Forms.Button();
+            this.clearBtn2 = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // dMajorBtn
@@ -168,23 +173,73 @@
             this.bbb.Text = "skala 6";
             this.bbb.UseVisualStyleBackColor = true;
             // 
-            // min10chbx
+            // comboBox1
             // 
-            this.min10chbx.AutoSize = true;
-            this.min10chbx.Location = new System.Drawing.Point(371, 226);
-            this.min10chbx.Name = "min10chbx";
-            this.min10chbx.Size = new System.Drawing.Size(58, 17);
-            this.min10chbx.TabIndex = 14;
-            this.min10chbx.Text = "Min 10";
-            this.min10chbx.UseVisualStyleBackColor = true;
-            this.min10chbx.CheckedChanged += new System.EventHandler(this.Min10chbx_CheckedChanged);
+            this.comboBox1.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.comboBox1.FormattingEnabled = true;
+            this.comboBox1.Location = new System.Drawing.Point(467, 207);
+            this.comboBox1.Name = "comboBox1";
+            this.comboBox1.Size = new System.Drawing.Size(37, 21);
+            this.comboBox1.TabIndex = 15;
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Location = new System.Drawing.Point(372, 210);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(77, 13);
+            this.label2.TabIndex = 16;
+            this.label2.Text = "Próg minimalny";
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Location = new System.Drawing.Point(372, 241);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(89, 13);
+            this.label3.TabIndex = 18;
+            this.label3.Text = "Próg maksymalny";
+            // 
+            // comboBox2
+            // 
+            this.comboBox2.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.comboBox2.FormattingEnabled = true;
+            this.comboBox2.Location = new System.Drawing.Point(467, 233);
+            this.comboBox2.Name = "comboBox2";
+            this.comboBox2.Size = new System.Drawing.Size(37, 21);
+            this.comboBox2.TabIndex = 17;
+            // 
+            // clearBtn1
+            // 
+            this.clearBtn1.Location = new System.Drawing.Point(520, 207);
+            this.clearBtn1.Name = "clearBtn1";
+            this.clearBtn1.Size = new System.Drawing.Size(81, 21);
+            this.clearBtn1.TabIndex = 19;
+            this.clearBtn1.Text = "Wyczyść";
+            this.clearBtn1.UseVisualStyleBackColor = true;
+            this.clearBtn1.Click += new System.EventHandler(this.ClearBtn1_Click);
+            // 
+            // clearBtn2
+            // 
+            this.clearBtn2.Location = new System.Drawing.Point(520, 232);
+            this.clearBtn2.Name = "clearBtn2";
+            this.clearBtn2.Size = new System.Drawing.Size(81, 21);
+            this.clearBtn2.TabIndex = 20;
+            this.clearBtn2.Text = "Wyczyść";
+            this.clearBtn2.UseVisualStyleBackColor = true;
+            this.clearBtn2.Click += new System.EventHandler(this.ClearBtn2_Click);
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(982, 297);
-            this.Controls.Add(this.min10chbx);
+            this.Controls.Add(this.clearBtn2);
+            this.Controls.Add(this.clearBtn1);
+            this.Controls.Add(this.label3);
+            this.Controls.Add(this.comboBox2);
+            this.Controls.Add(this.label2);
+            this.Controls.Add(this.comboBox1);
             this.Controls.Add(this.bbb);
             this.Controls.Add(this.bb);
             this.Controls.Add(this.b);
@@ -220,7 +275,12 @@
         private System.Windows.Forms.Button b;
         private System.Windows.Forms.Button bb;
         private System.Windows.Forms.Button bbb;
-        private System.Windows.Forms.CheckBox min10chbx;
+        private System.Windows.Forms.ComboBox comboBox1;
+        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.ComboBox comboBox2;
+        private System.Windows.Forms.Button clearBtn1;
+        private System.Windows.Forms.Button clearBtn2;
     }
 }
 
