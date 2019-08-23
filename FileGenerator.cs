@@ -15,11 +15,11 @@ namespace TabGenApp
     {
         public static int numberOfIterations;
         public static Random rnd;
-        public static string path = Environment.GetFolderPath(Environment.SpecialFolder.Desktop) + @"\Tab.txt";       // Na razie ustawiłem miejsce utworzenia pliku na pulpicie
+        public static string path = Environment.GetFolderPath(Environment.SpecialFolder.Desktop) + @"\Tab.txt";       // Na razie ustawilem miejsce utworzenia pliku na pulpicie
         public static int minFret;
         public static int maxFret;
 
-        public static void CreateFile(string[,] fretboard)          // Tworzy plik teksowy z wylosowaną tabulaturą             
+        public static void CreateFile(string[,] fretboard)          // Tworzy plik teksowy z wylosowana tabulatura             
         {
             using (StreamWriter sw = File.CreateText(path))
             {
@@ -40,13 +40,13 @@ namespace TabGenApp
                         sw.WriteLine();
                 }
             }
-        }    
+        }
 
         public static void UpdateFile(string[] linesArray, string[,] fretboard)
         {
             using (StreamWriter sw = File.CreateText(path))
             {
-                if(fretboard != null)
+                if (fretboard != null)
                 {
                     int rowLength = fretboard.GetLength(0);
                     int colLength = fretboard.GetLength(1);
@@ -67,7 +67,7 @@ namespace TabGenApp
                 {
                     for (int i = 0; i < linesArray.Length; i++)
                     {
-                        if(numberOfIterations % 2 == 0)
+                        if (numberOfIterations % 2 == 0)
                         {
                             sw.Write(linesArray[i] + "--|");
                             if (i != linesArray.Length - 1)
@@ -99,20 +99,11 @@ namespace TabGenApp
                     if (twoLastChars.All(char.IsDigit))
                         fret = Int32.Parse(twoLastChars);
                     else
-                        fret = Int32.Parse(twoLastChars.Substring(1));                    
+                        fret = Int32.Parse(twoLastChars.Substring(1));
                 }
             }
 
             return Tuple.Create(stringIndex, fret);
-        }
-
-        public static void ConvertComboInputToInt(ComboBox cb1, ComboBox cb2)
-        {
-            if (cb1.SelectedItem != null)
-                Int32.TryParse(cb1.SelectedItem.ToString(), out minFret);
-
-            if (cb2.SelectedItem != null)
-                Int32.TryParse(cb2.SelectedItem.ToString(), out maxFret);
         }
 
         public static string[] GetArrayFromFile()
@@ -128,7 +119,7 @@ namespace TabGenApp
 
             for (int i = 0; i < lines.Length; i++)
             {
-                if(numberOfIterations % 2 == 0)
+                if (numberOfIterations % 2 == 0)
                 {
                     if (i != lines.Length - 1)
                         lines[i] = lines[i].Remove(lines[i].Length - 1);
@@ -137,20 +128,20 @@ namespace TabGenApp
                 }
                 else
                 {
-                    if(i != lines.Length - 1)
+                    if (i != lines.Length - 1)
                         lines[i] = lines[i].Remove(lines[i].Length - 4);
                     else
                         lines[i] = lines[i].Remove(lines[i].Length - 3);
                 }
-                
-            }            
+
+            }
             return lines;
         }
 
-        public static int[][] PickNotes(int[][] scaleFrets, string[] linesArray = null)         // Tworzy tablicę ze współrzędnymi wylosowanych dźwięków ze skali
+        public static int[][] PickNotes(int[][] scaleFrets, string[] linesArray = null)         // Tworzy tablice ze wspólrzednymi wylosowanych dzwieków ze skali
         {
             Tuple<int, int> lastNote = null;
-            if(linesArray != null)
+            if (linesArray != null)
             {
                 lastNote = GetLastNote(linesArray);
             }
@@ -176,11 +167,27 @@ namespace TabGenApp
                         //if (existingFret < minFret && minFret != 0)
                         //    continue;
 
-                        if(minFret != 0 || maxFret != 0)
+                        //if(minFret != 0 || maxFret != 0)
+                        //{
+                        //    if ((maxFret == 0 && existingFret < minFret) 
+                        //        || (minFret == 0 && existingFret > maxFret) 
+                        //        || !(Enumerable.Range(minFret, maxFret-minFret).Contains(existingFret)))
+                        //        continue;
+                        //}
+
+                        if (minFret != 0 && maxFret == 0)
                         {
-                            if ((maxFret == 0 && existingFret < minFret) 
-                                || (minFret == 0 && existingFret > maxFret) 
-                                || !(Enumerable.Range(minFret, maxFret-minFret).Contains(existingFret)))
+                            if (existingFret < minFret)
+                                continue;
+                        }
+                        if (minFret == 0 && maxFret != 0)
+                        {
+                            if (existingFret > maxFret)
+                                continue;
+                        }
+                        if (minFret != 0 && maxFret != 0)
+                        {
+                            if (!Enumerable.Range(minFret, maxFret - minFret + 1).Contains(existingFret))
                                 continue;
                         }
 
@@ -191,12 +198,12 @@ namespace TabGenApp
                         {
                             stringDif = Math.Abs(pickedNotes[i - 1][0] - rRand);
                             fretDif = Math.Abs(existingFret - scaleFrets[pickedNotes[i - 1][0]][pickedNotes[i - 1][1]]);
-                            if ( stringDif > 2 || fretDif > 4)
-                                continue;                            
+                            if (stringDif > 2 || fretDif > 4)
+                                continue;
                         }
                         else
                         {
-                            if(lastNote != null)
+                            if (lastNote != null)
                             {
                                 stringDif = Math.Abs(lastNote.Item1 - rRand);
                                 fretDif = Math.Abs(lastNote.Item2 - existingFret);
@@ -217,7 +224,7 @@ namespace TabGenApp
             return pickedNotes;
         }
 
-        public static string[,] CreateEmptyTab()            // Tworzy tablicę wypełnioną "-"
+        public static string[,] CreateEmptyTab()            // Tworzy tablice wypelniona "-"
         {
             string[,] fretboard = new string[6, 11];
             int rowLength = fretboard.GetLength(0);
@@ -233,8 +240,8 @@ namespace TabGenApp
             return fretboard;
         }
 
-        public static void InsertPickedNotes(string[,] fretboard, 
-            int[][] pickedNotes, int[][] scaleFrets)                    // Zamienia odpowiednie miejsca w tablicy wylosowanymi dźwiękami ze skali
+        public static void InsertPickedNotes(string[,] fretboard,
+            int[][] pickedNotes, int[][] scaleFrets)                    // Zamienia odpowiednie miejsca w tablicy wylosowanymi dzwiekami ze skali
         {
             for (int j = 0; j < 4; j++)
             {
@@ -275,7 +282,7 @@ namespace TabGenApp
 
         public static int[][] GetCMajorFrets()
         {
-            int[] e2frets = { 1, 3, 5, 7, 8, 10, 12 ,13, 15, 17, 19, 20, 22, 24 };
+            int[] e2frets = { 1, 3, 5, 7, 8, 10, 12, 13, 15, 17, 19, 20, 22, 24 };
             int[] bfrets = { 1, 3, 5, 6, 8, 10, 12, 13, 15, 17, 18, 20, 22, 24 };
             int[] gfrets = { 2, 4, 5, 7, 9, 10, 12, 14, 16, 17, 19, 21, 22, 24 };
             int[] dfrets = { 2, 3, 5, 7, 9, 10, 12, 14, 15, 17, 19, 21, 22, 24 };

@@ -56,19 +56,21 @@ namespace TabGenApp
 
         private void GenerateBtn_Click(object sender, EventArgs e)
         {
-            //if (comboBox1.SelectedItem != null)
-            //    Int32.TryParse(comboBox1.SelectedItem.ToString(), out FileGenerator.minFret);
+            if (comboBox1.SelectedItem != null)
+                Int32.TryParse(comboBox1.SelectedItem.ToString(), out FileGenerator.minFret);
 
-            //if (comboBox2.SelectedItem != null)
-            //    Int32.TryParse(comboBox2.SelectedItem.ToString(), out FileGenerator.maxFret);
-            FileGenerator.ConvertComboInputToInt(comboBox1, comboBox2);
+            if (comboBox2.SelectedItem != null)
+                Int32.TryParse(comboBox2.SelectedItem.ToString(), out FileGenerator.maxFret);
 
-            if (FileGenerator.minFret >= FileGenerator.maxFret)
+            if (FileGenerator.minFret != 0 && FileGenerator.maxFret != 0)
             {
-                MessageBox.Show("Niepoprawny zakres");
-                FileGenerator.minFret = 0;
-                FileGenerator.maxFret = 0;
-                return;
+                if (FileGenerator.minFret >= FileGenerator.maxFret)
+                {
+                    MessageBox.Show("Niepoprawny zakres");
+                    FileGenerator.minFret = 0;
+                    FileGenerator.maxFret = 0;
+                    return;
+                }
             }
 
             FileGenerator.numberOfIterations = 0;
@@ -101,7 +103,7 @@ namespace TabGenApp
             //    FileGenerator.minFret = 0;
 
             if (File.Exists(FileGenerator.path))
-            {                
+            {
                 FileGenerator.numberOfIterations++;
                 string[] linesArray = FileGenerator.GetArrayFromFile();
                 previousLinesArray = linesArray;
