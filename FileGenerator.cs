@@ -164,16 +164,6 @@ namespace TabGenApp
                     try
                     {
                         existingFret = scaleFrets[rRand][cRand];
-                        //if (existingFret < minFret && minFret != 0)
-                        //    continue;
-
-                        //if(minFret != 0 || maxFret != 0)
-                        //{
-                        //    if ((maxFret == 0 && existingFret < minFret) 
-                        //        || (minFret == 0 && existingFret > maxFret) 
-                        //        || !(Enumerable.Range(minFret, maxFret-minFret).Contains(existingFret)))
-                        //        continue;
-                        //}
 
                         if (minFret != 0 && maxFret == 0)
                         {
@@ -208,7 +198,34 @@ namespace TabGenApp
                                 stringDif = Math.Abs(lastNote.Item1 - rRand);
                                 fretDif = Math.Abs(lastNote.Item2 - existingFret);
                                 if (stringDif > 2 || fretDif > 4)
+                                {
+                                    if (minFret != 0 && maxFret == 0)
+                                    {
+                                        if(lastNote.Item2 + 4 < minFret)
+                                        {
+                                            return null;
+                                        }
+                                    }
+                                    if (minFret == 0 && maxFret != 0)
+                                    {
+                                        if (lastNote.Item2 - 4 > maxFret)
+                                        {
+                                            return null;
+                                        }
+                                    }
+                                    if (minFret != 0 && maxFret != 0)
+                                    {
+                                        if(minFret - 4 < 0)
+                                            if (!Enumerable.Range(0, maxFret + 5).Contains(lastNote.Item2))
+                                                return null;
+                                        else
+                                            if (!Enumerable.Range(minFret - 4, maxFret - minFret + 5).Contains(lastNote.Item2))
+                                                return null;
+
+                                    }
+                                    
                                     continue;
+                                }
                             }
                         }
 

@@ -33,6 +33,7 @@ namespace TabGenApp
             this.FormClosing += new FormClosingEventHandler(Form1_FormClosing);
             scaleLbl.Text = "D Dur";
             chosenScale = FileGenerator.GetDMajorFrets();
+            nextBtn.Enabled = false;
             BackBtn.Enabled = false;
         }
 
@@ -82,25 +83,32 @@ namespace TabGenApp
 
                 FileGenerator.InsertPickedNotes(fretboard, pickedNotes, chosenScale);
                 FileGenerator.CreateFile(fretboard);
-                try
-                {
-                    Process.Start(@"D:\Program Files\Guitar Pro 6\GuitarPro.exe");
-                }
-                catch (Exception ex)
-                {
 
-                }
                 richTextBox2.Text = File.ReadAllText(FileGenerator.path);
                 richTextBox2.ScrollToCaret();
             }
+
+            nextBtn.Enabled = true;
         }
 
         private void NextBtn_Click(object sender, EventArgs e)
         {
-            //if (min10chbx.Checked)
-            //    FileGenerator.minFret = 10;
-            //else
-            //    FileGenerator.minFret = 0;
+            if (comboBox1.SelectedItem != null)
+                Int32.TryParse(comboBox1.SelectedItem.ToString(), out FileGenerator.minFret);
+
+            if (comboBox2.SelectedItem != null)
+                Int32.TryParse(comboBox2.SelectedItem.ToString(), out FileGenerator.maxFret);
+
+            if (FileGenerator.minFret != 0 && FileGenerator.maxFret != 0)
+            {
+                if (FileGenerator.minFret >= FileGenerator.maxFret)
+                {
+                    MessageBox.Show("Niepoprawny zakres");
+                    FileGenerator.minFret = 0;
+                    FileGenerator.maxFret = 0;
+                    return;
+                }
+            }
 
             if (File.Exists(FileGenerator.path))
             {
@@ -108,6 +116,13 @@ namespace TabGenApp
                 string[] linesArray = FileGenerator.GetArrayFromFile();
                 previousLinesArray = linesArray;
                 int[][] nextNotes = FileGenerator.PickNotes(chosenScale, linesArray);
+                if(nextNotes == null)
+                {
+                    MessageBox.Show("Niepoprawny zakres");
+                    FileGenerator.minFret = 0;
+                    FileGenerator.maxFret = 0;
+                    return;
+                }
                 fretboard = FileGenerator.CreateEmptyTab();
 
                 FileGenerator.InsertPickedNotes(fretboard, nextNotes, chosenScale);
@@ -121,10 +136,7 @@ namespace TabGenApp
 
         private void BackBtn_Click_1(object sender, EventArgs e)
         {
-            //if (min10chbx.Checked)
-            //    FileGenerator.minFret = 10;
-            //else
-            //    FileGenerator.minFret = 0;
+            FileGenerator.minFret = 0;
 
             if (File.Exists(FileGenerator.path) && FileGenerator.numberOfIterations > 0)
             {
